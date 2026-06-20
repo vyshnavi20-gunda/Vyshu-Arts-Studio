@@ -1,0 +1,56 @@
+.art-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: 0.4s;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+.art-card img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+}
+
+.art-content {
+    padding: 20px;
+}
+
+.art-content h3 {
+    color: var(--text-color);
+    margin-bottom: 18px;
+    font-size: 22px;
+}
+
+.art-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.like-btn,
+.download-btn {
+    border: none;
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-weight: 600;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.like-btn {
+    background: #1f1f1f;
+    color: #ff4d6d;
+}
+
+.download-btn {
+    background: linear-gradient(135deg, var(--gold), var(--orange));
+    color: black;
+}
+
+.like-btn:hover,
+.download-btn:hover {
+    transform: translateY(-3px);
+}

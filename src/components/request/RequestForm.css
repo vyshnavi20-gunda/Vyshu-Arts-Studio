@@ -1,0 +1,72 @@
+.request-section {
+    width: 100%;
+    padding: 120px 80px;
+}
+
+.request-container {
+    max-width: 850px;
+    margin: auto;
+    background: var(--card-bg);
+    padding: 60px;
+    border-radius: 30px;
+    border: 1px solid var(--border-color);
+}
+
+.request-container h4 {
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.request-container h2 {
+    text-align: center;
+    font-size: 55px;
+    margin-bottom: 50px;
+    color: var(--text-color);
+}
+
+.request-container h2 span {
+    color: var(--gold);
+}
+
+.request-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.request-container input,
+.request-container textarea,
+.request-container select {
+    width: 100%;
+    padding: 18px 20px;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    background: #111111;
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+
+.request-container textarea {
+    resize: none;
+}
+
+.request-container button {
+    padding: 18px;
+    border: none;
+    border-radius: 16px;
+    background: linear-gradient(135deg,
+            var(--gold),
+            var(--orange));
+
+    color: black;
+    font-size: 17px;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.request-container button:hover {
+    transform: translateY(-5px);
+}

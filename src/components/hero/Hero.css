@@ -1,0 +1,67 @@
+.hero {
+    width: 100%;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+    background: radial-gradient(circle at top,
+            rgba(255, 183, 3, 0.08),
+            var(--bg-color));
+    transition: 0.4s;
+}
+
+.hero-content {
+    max-width: 850px;
+}
+
+.hero h1 {
+    font-size: 80px;
+    line-height: 1.2;
+    margin-bottom: 25px;
+    color: var(--text-color);
+}
+
+.hero h1 span {
+    color: var(--gold);
+}
+
+.hero p {
+    font-size: 22px;
+    color: var(--secondary-text);
+    line-height: 1.8;
+    margin-bottom: 40px;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+.explore-btn,
+.order-btn {
+    padding: 16px 35px;
+    border: none;
+    border-radius: 14px;
+    font-size: 17px;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.explore-btn {
+    background: linear-gradient(135deg, var(--gold), var(--orange));
+    color: black;
+}
+
+.order-btn {
+    background: transparent;
+    border: 2px solid var(--gold);
+    color: var(--gold);
+}
+
+.explore-btn:hover,
+.order-btn:hover {
+    transform: translateY(-5px);
+}
