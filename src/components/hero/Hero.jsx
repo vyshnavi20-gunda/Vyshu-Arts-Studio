@@ -1,7 +1,9 @@
 import "./Hero.css";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 function Hero() {
+    const navigate = useNavigate();
     return (
         <section className="hero">
             <motion.div
@@ -20,9 +22,21 @@ function Hero() {
                 </p>
 
                 <div className="hero-buttons">
-                    <button className="explore-btn">Explore Gallery</button>
+                    <button
+                        className="explore-btn"
+                        type="button"
+                        onClick={() => navigate("/gallery")}
+                    >
+                        Explore Gallery
+                    </button>
 
-                    <button className="order-btn">Order Sketch</button>
+                    <button
+                        className="order-btn"
+                        type="button"
+                        onClick={() => navigate("/request")}
+                    >
+                        Order Sketch
+                    </button>
                 </div>
             </motion.div>
         </section>
