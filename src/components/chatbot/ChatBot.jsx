@@ -59,7 +59,7 @@ function ChatBot() {
     return createPortal(
         <>
             <button
-                className="chat-toggle"
+                className={`chat-toggle${open ? " chat-toggle-open" : ""}`}
                 onClick={() => setOpen(!open)}
                 aria-label={open ? "Close chat" : "Open chat"}
                 aria-expanded={open}

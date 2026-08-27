@@ -1,5 +1,6 @@
 .navbar {
     width: 100%;
+    max-width: 100vw;
     height: 85px;
     background: var(--navbar-bg);
     backdrop-filter: blur(10px);
@@ -188,22 +189,68 @@
 
 @media (max-width: 900px) {
     .navbar {
-        height: 70px;
+        height: auto;
+        min-height: 116px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-rows: 64px 52px;
+        padding-inline: clamp(14px, 4vw, 28px);
     }
 
     .nav-links {
-        display: none;
+        grid-column: 1 / -1;
+        grid-row: 2;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        align-items: center;
+        align-self: stretch;
+        width: 100%;
+        gap: 4px;
+        border-top: 1px solid var(--border-color);
     }
 
     .nav-right {
-        display: none;
+        grid-column: 2;
+        grid-row: 1;
+        display: flex;
+        gap: 8px;
     }
 
     .menu-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
+        display: none;
+    }
+
+    .logo {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .nav-links a {
+        display: grid;
+        place-items: center;
+        min-height: 44px;
+        width: 100%;
+        padding-inline: 2px;
+        font-size: clamp(14px, 3.7vw, 17px);
+        white-space: nowrap;
+    }
+
+    .nav-links a::after {
+        bottom: 2px;
+    }
+
+    .nav-right .theme-btn {
+        display: inline-grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        flex: 0 0 40px;
+    }
+
+    .nav-right .hire-btn {
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 13px;
     }
 
     .logo h2 {
@@ -225,7 +272,7 @@
 
 @media (max-width: 420px) {
     .navbar {
-        padding-inline: 16px;
+        padding-inline: 12px;
     }
 
     .logo {
@@ -233,7 +280,7 @@
     }
 
     .logo h2 {
-        font-size: 17px;
+        font-size: clamp(15px, 4.4vw, 17px);
     }
 
     .logo-icon {
@@ -242,6 +289,11 @@
 
     .menu-btn {
         font-size: 20px;
+    }
+
+    .nav-links a {
+        padding-inline: 2px;
+        font-size: clamp(13px, 3.8vw, 15px);
     }
 
     .mobile-menu {
@@ -259,5 +311,22 @@
     .mobile-actions .hire-btn {
         width: 100%;
         min-height: 45px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-right > a {
+        display: none;
+    }
+}
+
+@media (max-width: 340px) {
+    .logo h2 {
+        max-width: 82px;
+        line-height: 1.05;
+    }
+
+    .nav-right .hire-btn {
+        padding-inline: 10px;
     }
 }
