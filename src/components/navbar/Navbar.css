@@ -118,17 +118,18 @@
 
 /* Mobile menu overlay */
 .mobile-menu {
-    position: fixed;
-    top: 85px;
+    position: absolute;
+    top: 100%;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--card-bg);
+    width: 100%;
+    height: calc(100dvh - 85px);
+    min-height: calc(100vh - 85px);
+    background: var(--bg-color);
     z-index: 2000;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 30px 20px;
+    padding: 28px var(--page-gutter) max(32px, env(safe-area-inset-bottom));
     gap: 30px;
     overflow-y: auto;
 }
@@ -139,21 +140,39 @@
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 10px;
     width: 100%;
-    align-items: center;
+    align-items: stretch;
 }
 
 .mobile-menu a {
     color: var(--text-color);
-    font-size: 20px;
+    font-size: clamp(19px, 5vw, 22px);
     text-decoration: none;
+}
+
+.mobile-menu li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+    width: 100%;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.mobile-menu li a:hover,
+.mobile-menu li a:focus-visible {
+    color: var(--gold);
+    background: rgba(255, 183, 3, 0.08);
 }
 
 .mobile-actions {
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
+    gap: 18px;
+    margin-top: auto;
 }
 
 /* Responsive breakpoints */
@@ -192,8 +211,15 @@
     }
 
     .mobile-menu {
-        top: 70px;
+        height: calc(100dvh - 70px);
+        min-height: calc(100vh - 70px);
         padding: 32px var(--page-gutter);
+    }
+
+    .mobile-actions .theme-btn {
+        display: inline-grid;
+        place-items: center;
+        flex: 0 0 45px;
     }
 }
 
@@ -216,5 +242,22 @@
 
     .menu-btn {
         font-size: 20px;
+    }
+
+    .mobile-menu {
+        padding: 18px 16px max(20px, env(safe-area-inset-bottom));
+    }
+
+    .mobile-actions {
+        width: 100%;
+    }
+
+    .mobile-actions a {
+        flex: 1;
+    }
+
+    .mobile-actions .hire-btn {
+        width: 100%;
+        min-height: 45px;
     }
 }

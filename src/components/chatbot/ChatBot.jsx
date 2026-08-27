@@ -1,6 +1,7 @@
 import "./ChatBot.css";
 import { useState, useEffect, useRef } from "react";
-import { FaRobot, FaPaperPlane } from "react-icons/fa";
+import { createPortal } from "react-dom";
+import { FaRobot, FaPaperPlane, FaTimes } from "react-icons/fa";
 import { generateAIResponse } from "../../services/chatbotService";
 
 function ChatBot() {
@@ -55,19 +56,34 @@ function ChatBot() {
         ]);
     };
 
-    return (
+    return createPortal(
         <>
             <button
                 className="chat-toggle"
                 onClick={() => setOpen(!open)}
+                aria-label={open ? "Close chat" : "Open chat"}
+                aria-expanded={open}
+                aria-controls="art-studio-chatbot"
             >
-                <FaRobot />
+                {open ? <FaTimes /> : <FaRobot />}
             </button>
 
             {open && (
-                <div className="chatbot">
+                <section
+                    className="chatbot"
+                    id="art-studio-chatbot"
+                    aria-label="Vyshu AI Assistant"
+                >
                     <div className="chat-header">
                         <h3>Vyshu AI Assistant</h3>
+                        <button
+                            className="chat-close"
+                            type="button"
+                            aria-label="Close chat"
+                            onClick={() => setOpen(false)}
+                        >
+                            <FaTimes />
+                        </button>
                     </div>
 
                     <div className="chat-body">
@@ -112,13 +128,14 @@ function ChatBot() {
                             }}
                         />
 
-                        <button onClick={sendMessage}>
+                        <button onClick={sendMessage} aria-label="Send message">
                             <FaPaperPlane />
                         </button>
                     </div>
-                </div>
+                </section>
             )}
-        </>
+        </>,
+        document.body,
     );
 }
 

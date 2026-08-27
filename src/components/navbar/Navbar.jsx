@@ -7,7 +7,7 @@ import {
     FaBars,
     FaTimes,
 } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Navbar() {
     const [darkMode, setDarkMode] = useState(true);
@@ -18,6 +18,24 @@ function Navbar() {
         setDarkMode(!darkMode);
     };
 
+    useEffect(() => {
+        if (!mobileOpen) return undefined;
+
+        const previousOverflow = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
+
+        const closeOnEscape = (event) => {
+            if (event.key === "Escape") setMobileOpen(false);
+        };
+
+        window.addEventListener("keydown", closeOnEscape);
+
+        return () => {
+            document.body.style.overflow = previousOverflow;
+            window.removeEventListener("keydown", closeOnEscape);
+        };
+    }, [mobileOpen]);
+
     return (
         <nav className="navbar">
             <div className="logo">
@@ -27,7 +45,9 @@ function Navbar() {
 
             <button
                 className="menu-btn"
-                aria-label="Toggle menu"
+                aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+                aria-expanded={mobileOpen}
+                aria-controls="mobile-navigation"
                 onClick={() => setMobileOpen((s) => !s)}
             >
                 {mobileOpen ? <FaTimes /> : <FaBars />}
@@ -62,7 +82,7 @@ function Navbar() {
             </div>
 
             {mobileOpen && (
-                <div className="mobile-menu">
+                <div className="mobile-menu" id="mobile-navigation">
                     <ul>
                         <li>
                             <Link to="/" onClick={() => setMobileOpen(false)}>
@@ -99,6 +119,15 @@ function Navbar() {
                     </ul>
 
                     <div className="mobile-actions">
+                        <button
+                            className="theme-btn"
+                            type="button"
+                            aria-label="Change color theme"
+                            onClick={toggleTheme}
+                        >
+                            {darkMode ? <FaSun /> : <FaMoon />}
+                        </button>
+
                         <Link to="/request" onClick={() => setMobileOpen(false)}>
                             <button className="hire-btn">Hire Me</button>
                         </Link>

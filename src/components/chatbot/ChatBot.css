@@ -9,7 +9,7 @@
     background: linear-gradient(135deg, var(--gold), var(--orange));
     color: black;
     font-size: 28px;
-    z-index: 9999;
+    z-index: 10001;
     box-shadow: 0 0 20px rgba(255, 183, 3, 0.5);
     transition: 0.3s;
 }
@@ -29,7 +29,7 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    z-index: 9999;
+    z-index: 10000;
     border: 1px solid var(--border-color);
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
 }
@@ -39,12 +39,30 @@
     padding: 20px;
     background: linear-gradient(135deg, var(--gold), var(--orange));
     text-align: center;
+    position: relative;
 }
 
 .chat-header h3 {
     color: black;
     font-size: 22px;
     font-weight: 700;
+    padding-inline: 32px;
+}
+
+.chat-close {
+    position: absolute;
+    top: 50%;
+    right: 14px;
+    translate: 0 -50%;
+    display: inline-grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.12);
+    color: black;
+    font-size: 18px;
 }
 
 .chat-body {
@@ -150,14 +168,45 @@
         width: 56px;
         height: 56px;
         font-size: 24px;
+        bottom: calc(14px + env(safe-area-inset-bottom));
+        right: 14px;
     }
 
     .chatbot {
-        left: 12px;
-        right: 12px;
-        bottom: 88px;
+        top: max(10px, env(safe-area-inset-top));
+        left: 10px;
+        right: 10px;
+        bottom: calc(82px + env(safe-area-inset-bottom));
         width: auto;
-        height: min(560px, calc(100svh - 110px));
+        height: auto;
+        max-height: none;
         border-radius: 18px;
+    }
+
+    .chat-header {
+        padding: 16px 12px;
+    }
+
+    .chat-header h3 {
+        font-size: 18px;
+    }
+
+    .chat-body {
+        padding: 14px;
+        gap: 12px;
+    }
+
+    .chat-input {
+        height: 64px;
+    }
+
+    .chat-input input {
+        min-width: 0;
+        padding-inline: 14px;
+    }
+
+    .chat-input button {
+        flex: 0 0 60px;
+        width: 60px;
     }
 }
