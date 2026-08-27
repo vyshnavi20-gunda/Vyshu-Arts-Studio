@@ -1,52 +1,20 @@
-const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
-
 export const generateAIResponse = async (message) => {
     try {
-        const response = await fetch(
-            "https://openrouter.ai/api/v1/chat/completions",
-            {
-                method: "POST",
+        const response = await fetch("/api/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message }),
+        });
 
-                headers: {
-                    Authorization: `Bearer ${API_KEY}`,
-                    "Content-Type": "application/json",
-                },
+        const data = await response.json().catch(() => ({}));
 
-                body: JSON.stringify({
-                    model: "openai/gpt-3.5-turbo",
-
-                    messages: [
-                        {
-                            role: "system",
-                            content:
-                                "You are Vyshu Arts Studio AI assistant.",
-                        },
-
-                        {
-                            role: "user",
-                            content: message,
-                        },
-                    ],
-                }),
-            }
-        );
-
-        const data = await response.json();
-
-        console.log("OPENROUTER:", data);
-
-        if (data.choices) {
-            return data.choices[0].message.content;
+        if (!response.ok) {
+            return data.error || "The assistant is temporarily unavailable.";
         }
 
-        if (data.error) {
-            return data.error.message;
-        }
-
-        return "No response from AI.";
+        return data.reply || "No response from the assistant.";
     } catch (error) {
-        console.log(error);
-
-        return "AI failed 😢";
+        console.error("Chat request failed:", error);
+        return "Unable to connect to the assistant. Please try again.";
     }
 };

@@ -1,5 +1,15 @@
 # React + Vite
 
+## Chatbot setup
+
+Create `.env` from `.env.example` and set a server-side OpenRouter key:
+
+```env
+OPENROUTER_API_KEY=your_openrouter_key
+```
+
+Restart the development server after changing `.env`. The Vite development server exposes the local `/api/chat` endpoint. For Vercel deployments, add `OPENROUTER_API_KEY` in the project environment variables; `api/chat.js` provides the production serverless endpoint.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
