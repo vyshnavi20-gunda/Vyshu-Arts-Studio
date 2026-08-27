@@ -6,7 +6,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 80px;
+    padding: 0 var(--page-gutter);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -18,6 +18,7 @@
     display: flex;
     align-items: center;
     gap: 12px;
+    min-width: 0;
 }
 
 .logo-icon {
@@ -27,14 +28,16 @@
 
 .logo h2 {
     color: var(--text-color);
-    font-size: 28px;
+    font-size: clamp(20px, 2vw, 28px);
     font-weight: 700;
 }
 
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 40px;
+    gap: clamp(20px, 3vw, 40px);
+    margin: 0;
+    padding: 0;
 }
 
 .menu-btn {
@@ -44,6 +47,8 @@
     color: var(--text-color);
     font-size: 22px;
     cursor: pointer;
+    width: 44px;
+    height: 44px;
 }
 
 .nav-links a {
@@ -153,18 +158,17 @@
 
 /* Responsive breakpoints */
 @media (max-width: 1024px) {
-    .navbar {
-        padding: 0 40px;
+    .nav-right {
+        gap: 12px;
     }
 
-    .logo h2 {
-        font-size: 22px;
+    .hire-btn {
+        padding-inline: 20px;
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     .navbar {
-        padding: 0 20px;
         height: 70px;
     }
 
@@ -186,11 +190,28 @@
     .logo h2 {
         font-size: 20px;
     }
+
+    .mobile-menu {
+        top: 70px;
+        padding: 32px var(--page-gutter);
+    }
 }
 
 @media (max-width: 420px) {
+    .navbar {
+        padding-inline: 16px;
+    }
+
+    .logo {
+        gap: 8px;
+    }
+
     .logo h2 {
-        display: none;
+        font-size: 17px;
+    }
+
+    .logo-icon {
+        font-size: 24px;
     }
 
     .menu-btn {

@@ -1,13 +1,13 @@
 .request-section {
     width: 100%;
-    padding: 120px 80px;
+    padding: var(--section-space) var(--page-gutter);
 }
 
 .request-container {
     max-width: 850px;
     margin: auto;
     background: var(--card-bg);
-    padding: 60px;
+    padding: clamp(28px, 5vw, 60px);
     border-radius: 30px;
     border: 1px solid var(--border-color);
 }
@@ -21,8 +21,8 @@
 
 .request-container h2 {
     text-align: center;
-    font-size: 55px;
-    margin-bottom: 50px;
+    font-size: clamp(34px, 5vw, 55px);
+    margin-bottom: clamp(32px, 4vw, 50px);
     color: var(--text-color);
 }
 
@@ -47,6 +47,7 @@
     color: white;
     font-size: 16px;
     outline: none;
+    min-width: 0;
 }
 
 .request-container textarea {
@@ -69,4 +70,21 @@
 
 .request-container button:hover {
     transform: translateY(-5px);
+}
+
+@media (max-width: 480px) {
+    .request-container {
+        border-radius: 20px;
+    }
+
+    .request-container form {
+        gap: 18px;
+    }
+
+    .request-container input,
+    .request-container textarea,
+    .request-container select {
+        padding: 15px 16px;
+        border-radius: 12px;
+    }
 }

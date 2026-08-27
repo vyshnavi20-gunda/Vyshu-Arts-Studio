@@ -1,7 +1,7 @@
 .chat-toggle {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
+    bottom: max(20px, env(safe-area-inset-bottom));
+    right: max(20px, env(safe-area-inset-right));
     width: 65px;
     height: 65px;
     border-radius: 50%;
@@ -21,9 +21,9 @@
 .chatbot {
     position: fixed;
     bottom: 110px;
-    right: 30px;
-    width: 370px;
-    height: 520px;
+    right: max(20px, env(safe-area-inset-right));
+    width: min(370px, calc(100vw - 40px));
+    height: min(520px, calc(100svh - 150px));
     background: var(--card-bg);
     border-radius: 22px;
     overflow: hidden;
@@ -142,4 +142,22 @@
 
     100% {
         opacity: 0.4;
-    } }
+    }
+}
+
+@media (max-width: 480px) {
+    .chat-toggle {
+        width: 56px;
+        height: 56px;
+        font-size: 24px;
+    }
+
+    .chatbot {
+        left: 12px;
+        right: 12px;
+        bottom: 88px;
+        width: auto;
+        height: min(560px, calc(100svh - 110px));
+        border-radius: 18px;
+    }
+}

@@ -7,6 +7,9 @@
     --border-color: #2d2d2d;
     --gold: #ffb703;
     --orange: #fb8500;
+    --page-gutter: clamp(20px, 5vw, 80px);
+    --section-space: clamp(64px, 8vw, 120px);
+    --content-width: 1600px;
 }
 
 .light-theme {
@@ -32,10 +35,38 @@ body {
     transition: 0.4s;
 }
 
+#root {
+    width: 100%;
+    min-height: 100svh;
+}
+
+img,
+svg {
+    max-width: 100%;
+}
+
+input,
+textarea,
+select,
+button {
+    font: inherit;
+}
+
 a {
     text-decoration: none;
 }
 
 button {
     cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
 }
