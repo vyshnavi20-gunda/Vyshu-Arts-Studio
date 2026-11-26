@@ -1,14 +1,28 @@
+/* =================================
+   VYSHU ARTS STUDIO - ABOUT SECTION
+================================= */
+
 .about-section {
     width: 100%;
     min-height: 100vh;
     max-width: var(--content-width);
+
     margin-inline: auto;
     padding: var(--section-space) var(--page-gutter);
+
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     gap: clamp(40px, 6vw, 80px);
+
+    background: var(--bg);
+    color: var(--text-color);
+
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+/* LEFT CONTENT */
 
 .about-left {
     flex: 1;
@@ -16,16 +30,25 @@
 }
 
 .about-left h4 {
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    font-weight: 700;
     color: var(--gold);
+
     margin-bottom: 20px;
-    letter-spacing: 2px;
+    letter-spacing: 2.5px;
 }
 
 .about-left h2 {
+    font-family: "Poppins", sans-serif;
     font-size: clamp(36px, 5vw, 60px);
-    line-height: 1.3;
+    font-weight: 700;
+
+    letter-spacing: -1.5px;
+    line-height: 1.25;
+
     margin-bottom: 30px;
-    color: var(--text-color);
+    color: var(--text-h);
 }
 
 .about-left h2 span {
@@ -33,44 +56,72 @@
 }
 
 .about-left p {
-    font-size: 18px;
+    font-family: "Inter", sans-serif;
+    font-size: 17px;
+    font-weight: 400;
+
     line-height: 1.9;
-    color: var(--secondary-text);
+    color: var(--muted);
+
     margin-bottom: 40px;
 }
 
+/* KNOW MORE BUTTON */
+
 .about-left button {
+    font-family: "Inter", sans-serif;
+
     padding: 16px 34px;
     border: none;
     border-radius: 14px;
-    background: linear-gradient(135deg,
-            var(--gold),
-            var(--orange));
-    color: black;
+
+    background: linear-gradient(135deg, var(--gold), var(--orange));
+
+    color: #171717;
     font-weight: 700;
-    font-size: 16px;
-    transition: 0.3s;
+    font-size: 15px;
+
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .about-left button:hover {
     transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(255, 173, 0, 0.25);
 }
+
+/* RIGHT STATISTICS */
 
 .about-right {
     flex: 1;
+
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+
     gap: 30px;
     min-width: 0;
 }
 
+/* STAT CARDS */
+
 .about-card {
     background: var(--card-bg);
+    color: var(--text-color);
+
     padding: clamp(24px, 3vw, 40px);
+
     border-radius: 24px;
     text-align: center;
+
     border: 1px solid var(--border-color);
-    transition: 0.4s;
+    box-shadow: var(--shadow);
+
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .about-card:hover {
@@ -78,21 +129,51 @@
     box-shadow: 0 0 30px rgba(255, 183, 3, 0.15);
 }
 
+/* CARD ICONS */
+
 .about-card svg {
-    font-size: 50px;
+    font-size: 46px;
     color: var(--gold);
     margin-bottom: 20px;
 }
 
+/* CARD NUMBERS */
+
 .about-card h3 {
+    font-family: "Poppins", sans-serif;
     font-size: clamp(30px, 4vw, 40px);
-    color: var(--text-color);
+    font-weight: 700;
+
+    letter-spacing: -1px;
+    color: var(--text-h);
+
     margin-bottom: 12px;
 }
 
+/* CARD DESCRIPTIONS */
+
 .about-card p {
-    color: var(--secondary-text);
+    font-family: "Inter", sans-serif;
+    color: var(--muted);
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.6;
 }
+
+/* LIGHT MODE */
+
+:root.light-theme .about-card {
+    box-shadow: 0 8px 24px rgba(90, 60, 20, 0.07);
+}
+
+/* DARK MODE */
+
+:root:not(.light-theme) .about-card {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* TABLET */
 
 @media (max-width: 900px) {
     .about-section {
@@ -106,9 +187,19 @@
     }
 }
 
+/* MOBILE */
+
 @media (max-width: 520px) {
     .about-right {
         grid-template-columns: 1fr;
         gap: 18px;
+    }
+
+    .about-left h2 {
+        letter-spacing: -0.8px;
+    }
+
+    .about-left p {
+        font-size: 16px;
     }
 }

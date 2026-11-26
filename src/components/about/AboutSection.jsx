@@ -1,3 +1,4 @@
+
 import "./AboutSection.css";
 import { motion } from "framer-motion";
 import {
@@ -5,14 +6,18 @@ import {
     FaAward,
     FaHeart,
 } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function AboutSection() {
+    const navigate = useNavigate();
+
     return (
         <section className="about-section">
             <motion.div
                 className="about-left"
                 initial={{ opacity: 0, x: -80 }}
                 whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
                 transition={{ duration: 1 }}
             >
                 <h4>ABOUT ARTIST</h4>
@@ -29,13 +34,19 @@ function AboutSection() {
                     carefully to turn memories into timeless art.
                 </p>
 
-                <button>Know More</button>
+                <button
+                    type="button"
+                    onClick={() => navigate("/about")}
+                >
+                    Know More
+                </button>
             </motion.div>
 
             <motion.div
                 className="about-right"
                 initial={{ opacity: 0, x: 80 }}
                 whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
                 transition={{ duration: 1 }}
             >
                 <div className="about-card">

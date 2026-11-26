@@ -1,16 +1,34 @@
+/* =================================
+   VYSHU ARTS STUDIO - ORDER SKETCH
+================================= */
+
 .request-section {
     width: 100%;
-    padding: var(--section-space) var(--page-gutter);
+    padding: var(--section-space, 60px) var(--page-gutter);
+    background: var(--bg);
+    transition: background-color 0.3s ease;
 }
 
 .request-container {
     max-width: 850px;
     margin: auto;
+
     background: var(--card-bg);
+    color: var(--text-color);
+
     padding: clamp(28px, 5vw, 60px);
     border-radius: 30px;
     border: 1px solid var(--border-color);
+
+    box-shadow: var(--shadow);
+
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease;
 }
+
+/* HEADING */
 
 .request-container h4 {
     color: var(--gold);
@@ -30,47 +48,128 @@
     color: var(--gold);
 }
 
+/* FORM LAYOUT */
+
 .request-container form {
     display: flex;
     flex-direction: column;
     gap: 25px;
 }
 
+/* INPUTS, TEXTAREA AND SELECT */
+
 .request-container input,
 .request-container textarea,
 .request-container select {
     width: 100%;
+    min-width: 0;
+
     padding: 18px 20px;
+
     border-radius: 16px;
     border: 1px solid var(--border-color);
-    background: #111111;
-    color: white;
+
+    background: var(--input-bg);
+    color: var(--text-color);
+
+    font-family: inherit;
     font-size: 16px;
+
     outline: none;
-    min-width: 0;
+
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
 }
+
+/* PLACEHOLDER */
+
+.request-container input::placeholder,
+.request-container textarea::placeholder {
+    color: var(--muted);
+    opacity: 1;
+}
+
+/* FOCUS EFFECT */
+
+.request-container input:focus,
+.request-container textarea:focus,
+.request-container select:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px var(--accent-bg);
+}
+
+/* SELECT OPTIONS */
+
+.request-container select option {
+    background: var(--card-bg);
+    color: var(--text-color);
+}
+
+/* TEXTAREA */
 
 .request-container textarea {
-    resize: none;
+    resize: vertical;
+    min-height: 150px;
 }
 
-.request-container button {
+/* SUBMIT BUTTON */
+
+.request-container form button {
     padding: 18px;
+
     border: none;
     border-radius: 16px;
+
     background: linear-gradient(135deg,
             var(--gold),
             var(--orange));
 
-    color: black;
+    color: #171717;
+
     font-size: 17px;
     font-weight: 700;
-    transition: 0.3s;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        opacity 0.3s ease;
 }
 
-.request-container button:hover {
+.request-container form button:hover:not(:disabled) {
     transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(255, 173, 0, 0.25);
 }
+
+.request-container form button:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+/* SUCCESS AND ERROR MESSAGES */
+
+.request-feedback {
+    font-size: 15px;
+    padding: 12px 15px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.request-feedback.success {
+    color: #16803c;
+    background: rgba(34, 197, 94, 0.12);
+}
+
+.request-feedback.error {
+    color: #dc4040;
+    background: rgba(239, 68, 68, 0.12);
+}
+
+/* MOBILE */
 
 @media (max-width: 480px) {
     .request-container {
@@ -85,6 +184,11 @@
     .request-container textarea,
     .request-container select {
         padding: 15px 16px;
+        border-radius: 12px;
+    }
+
+    .request-container form button {
+        padding: 15px;
         border-radius: 12px;
     }
 }

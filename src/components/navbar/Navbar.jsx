@@ -1,3 +1,4 @@
+
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import {
@@ -10,16 +11,30 @@ import {
 import { useEffect, useState } from "react";
 
 function Navbar() {
-    const [darkMode, setDarkMode] = useState(true);
+    const [darkMode, setDarkMode] = useState(() => {
+        return localStorage.getItem("vyshu-theme") !== "light";
+    });
+
     const [mobileOpen, setMobileOpen] = useState(false);
 
+    useEffect(() => {
+        document.documentElement.classList.toggle(
+            "light-theme",
+            !darkMode
+        );
+
+        localStorage.setItem(
+            "vyshu-theme",
+            darkMode ? "dark" : "light"
+        );
+    }, [darkMode]);
+
     const toggleTheme = () => {
-        document.documentElement.classList.toggle("light-theme");
-        setDarkMode(!darkMode);
+        setDarkMode((previous) => !previous);
     };
 
     useEffect(() => {
-        if (!mobileOpen) return undefined;
+        if (!mobileOpen) return;
 
         const previousOverflow = document.body.style.overflow;
         document.body.style.overflow = "hidden";
@@ -45,34 +60,27 @@ function Navbar() {
 
             <button
                 className="menu-btn"
-                aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+                aria-label={mobileOpen ? "Close menu" : "Open menu"}
                 aria-expanded={mobileOpen}
-                aria-controls="mobile-navigation"
                 onClick={() => setMobileOpen((s) => !s)}
             >
                 {mobileOpen ? <FaTimes /> : <FaBars />}
             </button>
 
             <ul className="nav-links">
-                <li>
-                    <Link to="/">Home</Link>
-                </li>
-
-                <li>
-                    <Link to="/gallery">Gallery</Link>
-                </li>
-
-                <li>
-                    <Link to="/about">About</Link>
-                </li>
-
-                <li>
-                    <Link to="/contact">Contact</Link>
-                </li>
+                <li><Link to="/">Home</Link></li>
+                <li><Link to="/gallery">Gallery</Link></li>
+                <li><Link to="/about">About</Link></li>
+                <li><Link to="/contact">Contact</Link></li>
             </ul>
 
             <div className="nav-right">
-                <button className="theme-btn" onClick={toggleTheme}>
+                <button
+                    className="theme-btn"
+                    onClick={toggleTheme}
+                    aria-label="Toggle website theme"
+                    title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+                >
                     {darkMode ? <FaSun /> : <FaMoon />}
                 </button>
 
@@ -84,51 +92,36 @@ function Navbar() {
             {mobileOpen && (
                 <div className="mobile-menu" id="mobile-navigation">
                     <ul>
-                        <li>
-                            <Link to="/" onClick={() => setMobileOpen(false)}>
-                                Home
-                            </Link>
-                        </li>
-
-                        <li>
-                            <Link
-                                to="/gallery"
-                                onClick={() => setMobileOpen(false)}
-                            >
-                                Gallery
-                            </Link>
-                        </li>
-
-                        <li>
-                            <Link
-                                to="/about"
-                                onClick={() => setMobileOpen(false)}
-                            >
-                                About
-                            </Link>
-                        </li>
-
-                        <li>
-                            <Link
-                                to="/contact"
-                                onClick={() => setMobileOpen(false)}
-                            >
-                                Contact
-                            </Link>
-                        </li>
+                        {[
+                            ["Home", "/"],
+                            ["Gallery", "/gallery"],
+                            ["About", "/about"],
+                            ["Contact", "/contact"],
+                        ].map(([label, path]) => (
+                            <li key={path}>
+                                <Link
+                                    to={path}
+                                    onClick={() => setMobileOpen(false)}
+                                >
+                                    {label}
+                                </Link>
+                            </li>
+                        ))}
                     </ul>
 
                     <div className="mobile-actions">
                         <button
                             className="theme-btn"
-                            type="button"
-                            aria-label="Change color theme"
                             onClick={toggleTheme}
+                            aria-label="Toggle website theme"
                         >
                             {darkMode ? <FaSun /> : <FaMoon />}
                         </button>
 
-                        <Link to="/request" onClick={() => setMobileOpen(false)}>
+                        <Link
+                            to="/request"
+                            onClick={() => setMobileOpen(false)}
+                        >
                             <button className="hire-btn">Hire Me</button>
                         </Link>
                     </div>

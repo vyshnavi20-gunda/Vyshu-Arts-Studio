@@ -1,26 +1,64 @@
+/* =================================
+   VYSHU ARTS STUDIO - ARTWORK CARD
+================================= */
+
 .art-card {
     background: var(--card-bg);
+    color: var(--text-color);
+
+    border: 1px solid var(--border-color);
     border-radius: 20px;
     overflow: hidden;
-    transition: 0.4s;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+
+    box-shadow: var(--shadow);
+
+    transition:
+        background-color 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
 }
+
+/* ARTWORK IMAGE */
 
 .art-card img {
+    display: block;
     width: 100%;
     height: clamp(240px, 32vw, 360px);
+
     object-fit: cover;
+
+    transition: transform 0.4s ease;
 }
+
+.art-card:hover img {
+    transform: scale(1.03);
+}
+
+/* ARTWORK CONTENT */
 
 .art-content {
-    padding: 20px;
+    padding: 22px;
+    background: var(--card-bg);
 }
 
+/* ARTWORK TITLE */
+
 .art-content h3 {
+    font-family: "Poppins", sans-serif;
+    font-size: clamp(18px, 2vw, 22px);
+    font-weight: 600;
+    letter-spacing: -0.4px;
+    line-height: 1.4;
+
     color: var(--text-color);
-    margin-bottom: 18px;
-    font-size: 22px;
+
+    margin: 0 0 18px;
+
+    transition: color 0.3s ease;
 }
+
+/* ACTION BUTTONS */
 
 .art-actions {
     display: flex;
@@ -31,30 +69,77 @@
 
 .like-btn,
 .download-btn {
+    font-family: "Inter", sans-serif;
+
     border: none;
     padding: 12px 18px;
     border-radius: 12px;
+
+    font-size: 14px;
     font-weight: 600;
+    letter-spacing: 0.1px;
+
     display: flex;
     gap: 10px;
     align-items: center;
-    transition: 0.3s;
+    justify-content: center;
+
+    cursor: pointer;
+    text-decoration: none;
+
+    transition: all 0.3s ease;
 }
+
+/* LIKE BUTTON */
 
 .like-btn {
-    background: #1f1f1f;
+    background: var(--input-bg);
     color: #ff4d6d;
+
+    border: 1px solid var(--border-color);
 }
 
-.download-btn {
-    background: linear-gradient(135deg, var(--gold), var(--orange));
-    color: black;
-}
-
-.like-btn:hover,
-.download-btn:hover {
+.like-btn:hover {
+    background: rgba(255, 77, 109, 0.12);
     transform: translateY(-3px);
 }
+
+/* DOWNLOAD BUTTON */
+
+.download-btn {
+    background: linear-gradient(135deg,
+            var(--gold),
+            var(--orange));
+
+    color: #171717;
+}
+
+.download-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 173, 0, 0.3);
+}
+
+/* FOCUS ACCESSIBILITY */
+
+.like-btn:focus-visible,
+.download-btn:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+}
+
+/* LIGHT MODE */
+
+:root.light-theme .art-card {
+    box-shadow: 0 8px 24px rgba(90, 60, 20, 0.08);
+}
+
+/* DARK MODE */
+
+:root:not(.light-theme) .art-card {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* SMALL SCREENS */
 
 @media (max-width: 380px) {
     .art-actions {
@@ -64,7 +149,6 @@
 
     .like-btn,
     .download-btn {
-        justify-content: center;
         width: 100%;
     }
 }

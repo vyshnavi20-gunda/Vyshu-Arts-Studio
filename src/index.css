@@ -1,111 +1,327 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+/* =================================
+   VYSHU ARTS STUDIO - GLOBAL THEME
+================================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+:root {
+  color-scheme: dark;
+
+  --bg: #171717;
+  --bg-color: #171717;
+  --bg-secondary: #202020;
+
+  --surface: #292929;
+  --card-bg: #292929;
+  --input-bg: #303030;
+  --navbar-bg: rgba(23, 23, 23, 0.96);
+
+  --text: #eeeeee;
+  --text-color: #eeeeee;
+  --text-h: #ffffff;
+  --muted: #817466;
+
+  --gold: #ffad00;
+  --orange: #ff7b00;
+  --accent: #ffad00;
+  --accent-bg: rgba(255, 173, 0, 0.12);
+
+  --border: #393939;
+  --border-color: #393939;
+
+  --shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+
+  --page-gutter: clamp(16px, 4vw, 48px);
+
+  --sans: "Inter", sans-serif;
+  --heading: "Poppins", sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.5;
+
   color: var(--text);
   background: var(--bg);
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
+/* =================================
+   LIGHT MODE
+================================= */
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+:root.light-theme {
+  color-scheme: light;
+
+  --bg: #fff9ef;
+  --bg-color: #fff9ef;
+  --bg-secondary: #fff3df;
+
+  --surface: #ffffff;
+  --card-bg: #ffffff;
+  --input-bg: #ffffff;
+  --navbar-bg: rgba(255, 249, 239, 0.96);
+
+  --text: #4a4038;
+  --text-color: #4a4038;
+  --text-h: #21180f;
+  --muted: #817466;
+
+  --gold: #ed9b00;
+  --orange: #ff7b00;
+  --accent: #ed9b00;
+  --accent-bg: rgba(237, 155, 0, 0.12);
+
+  --border: #eadfce;
+  --border-color: #eadfce;
+
+  --shadow: 0 8px 25px rgba(90, 60, 20, 0.08);
+}
+
+/* =================================
+   GLOBAL RESET
+================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: var(--bg);
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
+  min-height: 100vh;
+
+  background: var(--bg);
+  color: var(--text);
+
+  font-family: var(--sans);
+
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 #root {
-  width: 1126px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 1126px;
+  min-height: 100vh;
+
   margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
+
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
+
+  text-align: center;
+
+  border-inline: 1px solid var(--border);
+
+  background: var(--bg);
+  color: var(--text);
+
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
 }
 
+/* =================================
+   TYPOGRAPHY
+================================= */
+
 h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--text-h);
+  font-family: var(--heading);
 }
 
 h1 {
   font-size: 56px;
   letter-spacing: -1.68px;
   margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
 }
+
 h2 {
   font-size: 24px;
   line-height: 118%;
   letter-spacing: -0.24px;
   margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
 }
-p {
+
+p,
+label {
+  color: var(--text);
   margin: 0;
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+a {
+  color: inherit;
 }
 
+/* =================================
+   FORMS
+================================= */
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  color: var(--text);
+  background: var(--input-bg);
+  border: 1px solid var(--border-color);
+
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--muted);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--accent-bg);
+}
+
+/* =================================
+   BUTTONS
+================================= */
+
+button {
+  font-family: inherit;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* =================================
+   CODE
+================================= */
+
 code {
-  font-size: 15px;
-  line-height: 135%;
+  font-family: var(--mono);
+  color: var(--text-h);
+  background: var(--surface);
   padding: 4px 8px;
-  background: var(--code-bg);
+  border-radius: 4px;
+}
+
+/* =================================
+   THEME TRANSITIONS
+================================= */
+
+.navbar,
+footer,
+section,
+.card,
+.gallery-card,
+.request-container,
+.chatbot,
+.mobile-menu {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+/* =================================
+   RESPONSIVE
+================================= */
+
+@media (max-width: 1024px) {
+  h1 {
+    font-size: 36px;
+    margin: 20px 0;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  #root {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* GLOBAL FONT STYLING */
+
+body,
+input,
+textarea,
+select,
+button {
+  font-family: var(--sans);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--heading);
+  font-weight: 700;
+}
+
+button {
+  font-weight: 600;
+}
+
+/* FORCE NEW FONTS THROUGHOUT THE WEBSITE */
+
+html,
+body,
+#root {
+  font-family: "Inter", sans-serif !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.navbar-logo,
+.footer-logo h3 {
+  font-family: "Poppins", sans-serif !important;
+}
+
+button,
+input,
+textarea,
+select,
+a {
+  font-family: "Inter", sans-serif !important;
 }

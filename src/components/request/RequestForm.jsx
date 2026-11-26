@@ -1,87 +1,98 @@
+
 import "./RequestForm.css";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import emailjs from "@emailjs/browser";
 
-import { db } from "../../firebase/firebase";
-import {
-    addDoc,
-    collection,
-    serverTimestamp,
-} from "firebase/firestore";
+const initialForm = {
+    name: "",
+    email: "",
+    artwork: "",
+    budget: "",
+    message: "",
+};
 
 function RequestForm() {
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        artwork: "",
-        budget: "",
+    const [formData, setFormData] = useState(initialForm);
+    const [loading, setLoading] = useState(false);
+    const [feedback, setFeedback] = useState({
+        type: "",
         message: "",
     });
 
     const handleChange = (e) => {
-        setFormData({
-            ...formData,
+        setFormData((previous) => ({
+            ...previous,
             [e.target.name]: e.target.value,
-        });
+        }));
+
+        setFeedback({ type: "", message: "" });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const data = Object.fromEntries(
+            Object.entries(formData).map(([key, value]) => [
+                key,
+                value.trim(),
+            ])
+        );
+
+        if (Object.values(data).some((value) => !value)) {
+            setFeedback({
+                type: "error",
+                message: "Please fill in all the details.",
+            });
+            return;
+        }
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+            setFeedback({
+                type: "error",
+                message: "Please enter a valid email address.",
+            });
+            return;
+        }
+
+        setLoading(true);
+        setFeedback({ type: "", message: "" });
+
         try {
-
-            await addDoc(collection(db, "requests"), {
-                name: formData.name,
-                email: formData.email,
-                artwork: formData.artwork,
-                budget: formData.budget,
-                message: formData.message,
-                createdAt: serverTimestamp(),
-                status: "Pending",
+            const response = await fetch("/api/requests", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
             });
 
+            const result = await response.json();
 
-            await emailjs.send(
-                "service_hosr5x8",
-                "template_mlhnzon",
-                {
-                    name: formData.name,
-                    email: formData.email,
-                    artwork: formData.artwork,
-                    budget: formData.budget,
-                    message: formData.message,
-                },
-                "BvHCiXoVA2xpwtCkF"
-            );
+            if (!response.ok) {
+                throw new Error(
+                    result.error || "Unable to submit your request."
+                );
+            }
 
+            setFormData(initialForm);
 
-            await emailjs.send(
-                "service_hosr5x8",
-                "template_mlhnzon",
-                {
-                    name: formData.name,
-                    email: formData.email,
-                    artwork: formData.artwork,
-                    budget: formData.budget,
-                    message: formData.message,
-                },
-                "BvHCiXoVA2xpwtCkF"
-            );
-
-            alert("🎉 Request Submitted Successfully!");
-
-            setFormData({
-                name: "",
-                email: "",
-                artwork: "",
-                budget: "",
-                message: "",
+            setFeedback({
+                type: "success",
+                message:
+                    "Your artwork request has been submitted successfully! 🎉",
             });
 
-        } catch (err) {
-            console.error("Error:", err);
-            alert(err.text || err.message);
+        } catch (error) {
+            console.error("Artwork submission error:", error);
+
+            setFeedback({
+                type: "error",
+                message:
+                    error.message || "Something went wrong. Please try again.",
+            });
+
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -101,12 +112,14 @@ function RequestForm() {
                 </h2>
 
                 <form onSubmit={handleSubmit}>
+
                     <input
                         type="text"
                         placeholder="Your Name"
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
+                        maxLength={120}
                         required
                     />
 
@@ -116,6 +129,7 @@ function RequestForm() {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
+                        maxLength={254}
                         required
                     />
 
@@ -126,29 +140,30 @@ function RequestForm() {
                         required
                     >
                         <option value="">Select Artwork Type</option>
-
-                        <option>Pencil Sketch</option>
-                        <option>Realistic Portrait</option>
-                        <option>Couple Portrait</option>
-                        <option>Family Portrait</option>
-                        <option>Pet Portrait</option>
-                        <option>Anime Art</option>
-                        <option>Canvas Painting</option>
-                        <option>Color Pencil Art</option>
-                        <option>Charcoal Sketch</option>
-                        <option>Acrylic Painting</option>
-                        <option>Watercolor Art</option>
-                        <option>Mandala Art</option>
-                        <option>Cartoon Portrait</option>
-                        <option>Custom Artwork</option>
+                        <option value="Pencil Sketch">Pencil Sketch</option>
+                        <option value="Realistic Portrait">Realistic Portrait</option>
+                        <option value="Couple Portrait">Couple Portrait</option>
+                        <option value="Family Portrait">Family Portrait</option>
+                        <option value="Pet Portrait">Pet Portrait</option>
+                        <option value="Anime Art">Anime Art</option>
+                        <option value="Canvas Painting">Canvas Painting</option>
+                        <option value="Color Pencil Art">Color Pencil Art</option>
+                        <option value="Charcoal Sketch">Charcoal Sketch</option>
+                        <option value="Acrylic Painting">Acrylic Painting</option>
+                        <option value="Watercolor Art">Watercolor Art</option>
+                        <option value="Mandala Art">Mandala Art</option>
+                        <option value="Cartoon Portrait">Cartoon Portrait</option>
+                        <option value="Custom Artwork">Custom Artwork</option>
                     </select>
 
                     <input
                         type="text"
-                        placeholder="Budget"
+                        placeholder="Your Budget"
                         name="budget"
                         value={formData.budget}
                         onChange={handleChange}
+                        maxLength={80}
+                        required
                     />
 
                     <textarea
@@ -157,11 +172,26 @@ function RequestForm() {
                         rows="6"
                         value={formData.message}
                         onChange={handleChange}
-                    ></textarea>
+                        maxLength={5000}
+                        required
+                    />
 
-                    <button type="submit">
-                        Submit Request
+                    {feedback.message && (
+                        <p
+                            className={`request-feedback ${feedback.type}`}
+                            role="status"
+                            aria-live="polite"
+                        >
+                            {feedback.message}
+                        </p>
+                    )}
+
+                    <button type="submit" disabled={loading}>
+                        {loading
+                            ? "Submitting..."
+                            : "Submit Request"}
                     </button>
+
                 </form>
             </motion.div>
         </section>

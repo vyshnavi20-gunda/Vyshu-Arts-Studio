@@ -1,3 +1,4 @@
+
 import "./Footer.css";
 
 import {
@@ -22,7 +23,9 @@ function Footer() {
                     your ideas to life.
                 </p>
 
-                <button>Hire Me</button>
+                <a className="footer-hire-btn" href="/contact">
+                    Hire Me
+                </a>
             </div>
 
             <div className="footer-middle">
@@ -31,32 +34,33 @@ function Footer() {
 
                     <div>
                         <h3>Vyshu Arts Studio</h3>
-
                         <p>@_wanderink._</p>
                     </div>
                 </div>
 
                 <div className="social-icons">
-                    {/* Instagram */}
                     <a
                         href="https://www.instagram.com/_wanderink._?igsh=dnl6YnB3bnhtemR3"
                         target="_blank"
                         rel="noreferrer"
+                        aria-label="Instagram"
                     >
                         <FaInstagram />
                     </a>
 
-                    {/* WhatsApp */}
                     <a
                         href="https://wa.me/919985126855"
                         target="_blank"
                         rel="noreferrer"
+                        aria-label="WhatsApp"
                     >
                         <FaWhatsapp />
                     </a>
 
-                    {/* Gmail */}
-                    <a href="mailto:vyshugupta20@gmail.com">
+                    <a
+                        href="mailto:vyshugupta20@gmail.com"
+                        aria-label="Email"
+                    >
                         <FaEnvelope />
                     </a>
                 </div>
@@ -64,7 +68,6 @@ function Footer() {
 
             <div className="footer-contact">
                 <p>📧 vyshugupta20@gmail.com</p>
-
                 <p>📱 +91 9985126855</p>
             </div>
 
